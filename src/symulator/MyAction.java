@@ -45,9 +45,25 @@ public class MyAction implements ActionListener
             
                         
                 frame.Pointslist.clear();
-                frame.panel.getPoints(frame.Pointslist,frame.Amplitude);
-                frame.getRectangularPlot();
-                frame.repaint();
+                if(frame.RadSquare.isSelected())
+                {
+                    frame.panel.getPoints(frame.Pointslist,frame.Amplitude,frame.Time);
+                    frame.getRectangularPlot();
+                    frame.repaint();
+                }
+                else if(frame.RadTriangular.isSelected())
+                {
+                    frame.panel.getPoints(frame.Pointslist,frame.Amplitude,frame.Time);
+                    frame.getTriangularPlot();
+                    frame.repaint();
+                }
+                else if(frame.RadHarmonic.isSelected())
+                {
+                    frame.panel.getPoints(frame.Pointslist,frame.Amplitude,frame.Time);
+                    frame.getHarmonicPlot();
+                    frame.repaint();
+                }
+               
             }
             
         }

@@ -21,6 +21,7 @@ import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.JRadioButton;
 import javax.swing.JTextField;
 
 /**
@@ -33,6 +34,9 @@ public class Frame extends JFrame
    public JTextField textAmp = new JTextField("",15);
    public JTextField textFreq = new JTextField("",15);
    public JTextField textTime = new JTextField("",15);
+   public JRadioButton RadSquare = new JRadioButton("Square Signal");
+   public JRadioButton RadTriangular = new JRadioButton("Triangular Signal");
+   public JRadioButton RadHarmonic = new JRadioButton("Harmonic Signal");
 
    public Double Time;
    public Double Amplitude;
@@ -53,8 +57,9 @@ public class Frame extends JFrame
                       JPanel panel5 = new JPanel(new FlowLayout(FlowLayout.LEFT));
                       JPanel panel6 = new JPanel(new FlowLayout(FlowLayout.LEFT));
                       JPanel panel7 = new JPanel(new FlowLayout(FlowLayout.LEFT));
+                      
 
-                LeftPanel.setLayout(new GridLayout(10,1));
+                LeftPanel.setLayout(new GridLayout(20,1));
                 JLabel labelk = new JLabel("k:");
                 JTextField textk = new JTextField("",15);
                 panel1.add(labelk,BorderLayout.WEST);
@@ -92,6 +97,10 @@ public class Frame extends JFrame
                  LeftPanel.add(panel5);
                  LeftPanel.add(panel6);
                  LeftPanel.add(panel7);
+                 LeftPanel.add(RadSquare);
+                 LeftPanel.add(RadTriangular);
+                 LeftPanel.add(RadHarmonic);
+                 
                    LeftPanel.add(button);
 //                labelT.setLabelFor(textT);
 //                labelk.setLabelFor(textk);
@@ -116,7 +125,7 @@ public class Frame extends JFrame
             
             
         }
-        public void getRectangularPlot()
+        public void getTriangularPlot()
         {
             Double CurrentTime=0.d;
             Double DeltaTime=Time/500.d;
@@ -129,6 +138,35 @@ public class Frame extends JFrame
                CurrentTime+=DeltaTime;
             }
             
+        }
+        
+        public void getRectangularPlot()
+        {
+            Double CurrentTime=0.d;
+            Double DeltaTime = Time/500.d;
+            for(int t=0;t<500;t++)
+            {
+                double T=(double) t+400.d;
+                Double F=(130-(Amplitude*Math.signum(Math.sin(2*Math.PI*Frequency*CurrentTime)))/Amplitude*100);
+                Point2D buffPoint = new Point2D.Double(T,F);
+                Pointslist.add(buffPoint);
+                CurrentTime+=DeltaTime;
+            }
+            
+            
+        }
+        public void getHarmonicPlot()
+        {
+            Double CurrentTime=0.d;
+            Double DeltaTime = Time/500.d;
+            for(int t=0;t<500;t++)
+            {
+                double T=(double) t+400.d;
+                Double F=130-(Amplitude*Math.cos(2*Math.PI*Frequency*CurrentTime))/Amplitude*100;
+                Point2D buffPoint = new Point2D.Double(T,F);
+                Pointslist.add(buffPoint);
+                CurrentTime+=DeltaTime;
+            }
         }
         
         

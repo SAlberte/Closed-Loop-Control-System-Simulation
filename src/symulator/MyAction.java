@@ -7,6 +7,7 @@ package symulator;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
 import javax.swing.JButton;
 
 /**
@@ -15,19 +16,38 @@ import javax.swing.JButton;
  */
 public class MyAction implements ActionListener 
 {
-    private Frame frame;
+    public Frame frame;
+    
     
     MyAction(Frame frame)
     {
         this.frame=frame;
         
     }
-    public void actionPerformed(ActionEvent e) {
+    public void actionPerformed(ActionEvent e)
+    {
             JButton bt = (JButton)e.getSource();
             if(bt==frame.button)
             {
                 System.out.println("ok");
-                frame.button.setText("");
+                try{
+                    double value = Double.parseDouble(frame.textAmp.getText());
+                    frame.Amplitude=value;
+                     value = Double.parseDouble(frame.textFreq.getText());
+                    frame.Frequency=value;
+                    value = Double.parseDouble(frame.textTime.getText());
+                    frame.Time= value;
+                }
+                catch (Exception s)
+                {
+                    System.out.println("Must be a number");
+                }
+            
+                        
+                frame.Pointslist.clear();
+                frame.panel.getPoints(frame.Pointslist,frame.Amplitude);
+                frame.getRectangularPlot();
+                frame.repaint();
             }
             
         }

@@ -30,6 +30,7 @@ public class MyPanel extends JPanel
 {   
     public ArrayList <Point2D> list;
     public Double Amp;
+    public Double Time;
     public MyPanel()
     {
         super();
@@ -41,23 +42,25 @@ public class MyPanel extends JPanel
         {
 		super.paintComponent(g);
 		Graphics2D g2d = (Graphics2D) g;
+                
                 if(list!=null)
                 {
                     this.removeAll();
-                    g2d.clearRect(WIDTH, WIDTH, WIDTH, HEIGHT);
                     g2d.setColor(Color.red);
-                     g2d.drawLine((int)list.get(0).getX(), (int)list.get(0).getY(),(int)list.get(0).getX(),(int)list.get(0).getY());
+                    g2d.drawLine((int)list.get(0).getX(), (int)list.get(0).getY(),(int)list.get(0).getX(),(int)list.get(0).getY());
                     for(int i=1;i<list.size();i++)
                     {
                         g2d.drawLine((int)list.get(i-1).getX(), (int)list.get(i-1).getY(),(int)list.get(i).getX(),(int)list.get(i).getY());
                         
                     }
                     g2d.drawString(Double.toString(Amp),350,30);
+                    g2d.drawString(Double.toString(Time),905,130);
                 }
                 g2d.setColor(Color.black);
-                g2d.drawLine(400, 10, 400, 130);
+                g2d.drawLine(400, 10, 400, 230);
                 g2d.drawLine(400, 130, 900, 130);
                 g2d.drawLine(395,30,400,30);
+                g2d.drawLine(900,125,900,135);
                 Font font = new Font("Serif", Font.PLAIN, 12);
  
                 g2d.setFont(font);
@@ -66,10 +69,11 @@ public class MyPanel extends JPanel
                     
                 
 	}
-        public void getPoints(ArrayList <Point2D> list,Double Amp)
+        public void getPoints(ArrayList <Point2D> list,Double Amp,Double Time)
         {
             this.list=list;
             this.Amp=Amp;
+            this.Time=Time;
             
         }
         

@@ -42,12 +42,14 @@ public class Frame extends JFrame
    public Double Amplitude;
    public Double Frequency;
    public  MyPanel panel;
-   public  ArrayList <Point2D> Pointslist;
-    	public Frame()
+   public  ArrayList <Point2D> Pointslist; // contains points of plot after mapping
+   public ArrayList <Point2D> TruePointslist;
+     	public Frame()
         {
                 super("Control System");
 
                 Pointslist = new ArrayList <Point2D>();
+                TruePointslist = new ArrayList<Point2D>();
                 panel = new MyPanel();
                       JPanel LeftPanel = new JPanel();
                       JPanel panel1 = new JPanel(new FlowLayout(FlowLayout.LEFT));
@@ -132,9 +134,9 @@ public class Frame extends JFrame
             for(int t=0;t<500;t+=1)
             {
                double T=(double)t+400.d;
-               Double F=((130-(Amplitude*Math.abs(2*Math.PI*Math.asin((Math.sin(2*Math.PI*0.5d*Frequency*CurrentTime))))/10/Amplitude*100)));
+               Double F=((Amplitude*Math.abs(2*Math.PI*Math.asin((Math.sin(2*Math.PI*0.5d*Frequency*CurrentTime))))/10));
                Point2D buffPoint = new Point2D.Double(T,F);
-               Pointslist.add(buffPoint);
+               TruePointslist.add(buffPoint);
                CurrentTime+=DeltaTime;
             }
             
@@ -147,9 +149,9 @@ public class Frame extends JFrame
             for(int t=0;t<500;t++)
             {
                 double T=(double) t+400.d;
-                Double F=(130-(Amplitude*Math.signum(Math.sin(2*Math.PI*Frequency*CurrentTime)))/Amplitude*100);
+                Double F=(Amplitude*Math.signum(Math.sin(2*Math.PI*Frequency*CurrentTime)));
                 Point2D buffPoint = new Point2D.Double(T,F);
-                Pointslist.add(buffPoint);
+                TruePointslist.add(buffPoint);
                 CurrentTime+=DeltaTime;
             }
             
@@ -162,11 +164,23 @@ public class Frame extends JFrame
             for(int t=0;t<500;t++)
             {
                 double T=(double) t+400.d;
-                Double F=130-(Amplitude*Math.cos(2*Math.PI*Frequency*CurrentTime))/Amplitude*100;
+                Double F=(Amplitude*Math.cos(2*Math.PI*Frequency*CurrentTime));
                 Point2D buffPoint = new Point2D.Double(T,F);
-                Pointslist.add(buffPoint);
+                TruePointslist.add(buffPoint);
                 CurrentTime+=DeltaTime;
             }
+        }
+        public void plotMapping()
+        {
+            
+            for(int i=0;i<TruePointslist.size();i++)
+            {
+                Double T= TruePointslist.get(i).getX();
+                Double F= 130-TruePointslist.get(i).getY()/Amplitude*100;
+                Point2D buffPoint = new Point2D.Double(T,F);
+                Pointslist.add(buffPoint);
+            }
+            
         }
         
         

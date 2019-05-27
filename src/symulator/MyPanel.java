@@ -31,6 +31,7 @@ public class MyPanel extends JPanel
     public ArrayList <Point2D> list;
     public Double Amp;
     public Double Time;
+    public ArrayList <Point2D> Reslist;
     public MyPanel()
     {
         super();
@@ -43,7 +44,7 @@ public class MyPanel extends JPanel
 		super.paintComponent(g);
 		Graphics2D g2d = (Graphics2D) g;
                 
-                if(list!=null)
+                if(list!=null && Reslist!= null)
                 {
                     this.removeAll();
                     g2d.setColor(Color.red);
@@ -53,6 +54,13 @@ public class MyPanel extends JPanel
                         g2d.drawLine((int)list.get(i-1).getX(), (int)list.get(i-1).getY(),(int)list.get(i).getX(),(int)list.get(i).getY());
                         
                     }
+                     g2d.drawLine((int)Reslist.get(0).getX(), (int)Reslist.get(0).getY(),(int)Reslist.get(0).getX(),(int)Reslist.get(0).getY());
+                    for(int i=1;i<Reslist.size();i++)
+                    {
+                        g2d.drawLine((int)Reslist.get(i-1).getX(), (int)Reslist.get(i-1).getY(),(int)Reslist.get(i).getX(),(int)Reslist.get(i).getY());
+                                                System.out.println(Reslist.get(i-1).getX());
+
+                    }
                     g2d.drawString(Double.toString(Amp),350,30);
                     g2d.drawString(Double.toString(Time),905,130);
                 }
@@ -61,6 +69,8 @@ public class MyPanel extends JPanel
                 g2d.drawLine(400, 130, 900, 130);
                 g2d.drawLine(395,30,400,30);
                 g2d.drawLine(900,125,900,135);
+                g2d.drawLine(150,300,150,500);
+                g2d.drawLine(150,400,900,400);
                 Font font = new Font("Serif", Font.PLAIN, 12);
  
                 g2d.setFont(font);
@@ -69,12 +79,12 @@ public class MyPanel extends JPanel
                     
                 
 	}
-        public void getPoints(ArrayList <Point2D> list,Double Amp,Double Time)
+        public void getPoints(ArrayList <Point2D> list,Double Amp,Double Time,ArrayList <Point2D> Reslist)
         {
             this.list=list;
             this.Amp=Amp;
             this.Time=Time;
-            
+            this.Reslist=Reslist;
         }
         
 }
